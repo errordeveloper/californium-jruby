@@ -1,12 +1,12 @@
 # Californium/JRuby
 
-This project attempts to bring Matthias Kovatsch's CoAP (Constrained
-Application Protocol) Java framework to the Ruby (well, JRuby) community
-to enable future ReSTfull applications using CoAP and hopefully combine
-"the nice" Ruby language with so-well-known performance of JRuby!
-Californium is in fact a very comprehensive framework and I wouldn't
-bother having a ago at doing that in Ruby from scratch, so let's just
-use what JRuby can do - bind to the Java API.
+This project attempts to bring [Matthias Kovatsch's CoAP (Constrained
+Application Protocol) Java framework][cf-repo] to the Ruby (well, JRuby)
+community to enable future ReSTfull applications using CoAP and hopefully
+combine "the nice" Ruby language with so-well-known performance of JRuby!
+[Californium is in fact a very comprehensive framework][cf-page] and I
+wouldn't bother having a ago at doing that in Ruby from scratch, so let's
+just use what JRuby can do - bind to the Java API.
 
 ## Dependencies
 
@@ -31,3 +31,6 @@ can now run the examples.
 
 See `examples` directory for starters, I'll try to make it a proper
 thing once I figured what it will be like.
+
+[cf-repo]: https://github.com/mkovatsc/Californium
+[cf-page]: http://people.inf.ethz.ch/mkovatsc/resources/californium/cf-docs.php
