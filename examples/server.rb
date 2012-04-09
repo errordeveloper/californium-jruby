@@ -1,4 +1,4 @@
-require(File.join(File.dirname(__FILE__), '..', 'lib', 'cf_module'))
+require(File.join(File.dirname(__FILE__), '..', 'lib', 'modules', 'basic_server'))
 
 class ExampleServer
   def initialize

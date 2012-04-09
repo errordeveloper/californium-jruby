@@ -1,6 +1,6 @@
 require 'java'
 
-require(File.join(File.dirname(__FILE__), 'cf.jar'))
+require(File.join(File.dirname(__FILE__), '..', 'cf.jar'))
 
 module Cf
   import 'ch.ethz.inf.vs.californium.coap'
