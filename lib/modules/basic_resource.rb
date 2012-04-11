@@ -1,43 +1,28 @@
-#require 'java'
-
-#require(File.join('lib', 'cf.jar'))
-
-#module CfResource
-#  import 'ch.ethz.inf.vs.californium.coap.CodeRegistry'
-#  import 'ch.ethz.inf.vs.californium.coap.GETRequest'
-#  import 'ch.ethz.inf.vs.californium.coap.MediaTypeRegistry'
-#  import 'ch.ethz.inf.vs.californium.coap.Response'
-#  import 'ch.ethz.inf.vs.californium.endpoint.LocalResource'
-#end
-
 class BasicResource < Cf::LocalResource
-  
-  #def initialize (custom='helloWorld.rb', title='Hello Californium/JRuby!', type='HelloWorldDisplayer')
-  def initialize (custom) #, title, type)
-
-    #custom='helloWorld.rb'
-    #title='Hello Californium/JRuby!'
-    #type='HelloWorldDisplayer'
-
-    @ep = Cf::LocalResource.new(custom) #, title, type)
-    #@ep.setTitle(title)
-    #@ep.setResourceType(type)
-    #@my = title
+  # All of the arguments are being passed
+  # to `LocalResource.new`, so we cannot
+  # put more then just this one here :(
+  def initialize (custom)
+    @ep = Cf::LocalResource.new(custom)
   end
-
+  # We got to wrap it this way for now,
+  # which is not too bas anyway ...
+  # If you can figure any better way -
+  # I'll get you a beer :)
   def setTitle(string)
     @ep.setTitle(string)
   end
-
+  # I did keep the camel case, just for
+  # the sake of pseudo compatibility.
   def setResourceType(string)
     @ep.setResourceType(string)
   end
-
+  # And this one just worked, which does
+  # make me hapy & I can go to the pub now!
   def performGET(request)
     response = Cf::Response.new(Cf::CodeRegistry::RESP_CONTENT)
     response.setPayload(@ep.getTitle)
     response.setContentType(Cf::MediaTypeRegistry::TEXT_PLAIN)
     request.respond(response)
   end
-
 end
