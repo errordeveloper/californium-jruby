@@ -1,4 +1,5 @@
 require(File.join('lib', 'modules', 'basic_server'))
+require(File.join('lib', 'modules', 'basic_resource'))
 
 class ExampleServer
   def initialize
@@ -9,6 +10,10 @@ class ExampleServer
     # Add a few basic endpoints
     @ep.addResource(Cf::HelloWorldResource.new)
     @ep.addResource(Cf::ZurichWeatherResource.new)
+    @my = BasicResource.new('helloWorld.rb') #, 'Hello Californium/JRuby!', 'HelloWorldDisplayer')
+    @my.setTitle('Hello Californium/JRuby!')
+    @my.setResourceType('HelloWorldDisplayer')
+    @ep.java_send(:addResource, [Cf::LocalResource], @my)
   end
 end
 
