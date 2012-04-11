@@ -10,7 +10,7 @@ JRUBY		?= jruby
 JRUBY_FLAGS	?= --server -I$(PROJECT_ROOT)
 JRUBY_JAR	?= $(shell ruby -e "require 'rbconfig'; puts File.join(Config::CONFIG['libdir'], 'jruby.jar');")
 
-CLASSPATH	:= ./:./examples/:$(JRUBY_JAR)
+CLASSPATH	:= ./:$(JRUBY_JAR)
 
 EXAMPLES := $(wildcard examples/*.rb)
 EXAMPLES_COMPILED := $(EXAMPLES:.rb=.class)
@@ -45,5 +45,5 @@ clean:
 flush_logs:
 	find . -iname 'Californium-log.*' | xargs rm -f
 
-server: examples/server.class
-	java -cp $(CLASSPATH) server
+server: bundle.jar
+	java -cp $(CLASSPATH):./$< examples/server
