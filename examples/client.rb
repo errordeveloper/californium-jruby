@@ -1,4 +1,4 @@
-require(File.join('..', 'lib', 'modules', 'basic_client'))
+require(File.join('lib', 'modules', 'basic_client'))
 
 class ExampleClient
   def initialize
