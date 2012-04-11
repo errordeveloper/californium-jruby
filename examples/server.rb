@@ -1,4 +1,8 @@
-require(File.join(File.dirname(__FILE__), '..', 'lib', 'modules', 'basic_server'))
+if (File.dirname(__FILE__).split(':')[0] == 'jar') then
+  require(File.join('lib', 'modules', 'basic_server'))
+else
+  require(File.join(File.dirname(__FILE__), '..', 'lib', 'modules', 'basic_server'))
+end
 
 class ExampleServer
   def initialize
