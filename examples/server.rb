@@ -16,12 +16,12 @@ class ExampleServer
     @my = Text::Plain.new('helloWorld.rb')
     @my.setTitle('Hello Californium/JRuby!')
     @my.setResourceType('HelloWorldDisplayer')
-    @ep.java_send(:addResource, [Cf::LocalResource], @my)
+    @ep.addResource(@my)
 
     @json = Application::JSON.new('test.json')
     @json.setTitle('{"hello":"json"}')
     @json.setResourceType('testJSON')
-    @ep.java_send(:addResource, [Cf::LocalResource], @json)
+    @ep.addResource(@json)
 
   end
 end
