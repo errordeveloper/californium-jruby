@@ -1,5 +1,5 @@
 require(File.join('lib', 'modules', 'basic_server'))
-require(File.join('lib', 'modules', 'basic_resource'))
+require(File.join('lib', 'modules', 'response', 'resources'))
 
 class ExampleServer
   def initialize
@@ -13,10 +13,16 @@ class ExampleServer
 
     # This is somewhat of a hack, but it works!
     # (see: `lib/modules/basic_resource`)
-    @my = BasicResource.new('helloWorld.rb')
+    @my = Text::Plain.new('helloWorld.rb')
     @my.setTitle('Hello Californium/JRuby!')
     @my.setResourceType('HelloWorldDisplayer')
     @ep.java_send(:addResource, [Cf::LocalResource], @my)
+
+    @json = Application::JSON.new('test.json')
+    @json.setTitle('{"hello":"json"}')
+    @json.setResourceType('testJSON')
+    @ep.java_send(:addResource, [Cf::LocalResource], @json)
+
   end
 end
 
