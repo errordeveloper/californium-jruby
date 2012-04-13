@@ -1,5 +1,5 @@
 require(File.join('lib', 'modules', 'basic_server'))
-require(File.join('lib', 'modules', 'response', 'resources'))
+require(File.join('lib', 'modules', 'local_resources'))
 
 class ExampleServer
   def initialize
