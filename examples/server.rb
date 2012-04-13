@@ -2,6 +2,7 @@ require(File.join('lib', 'modules', 'basic_server'))
 require(File.join('lib', 'modules', 'local_resources'))
 
 class ExampleServer
+  include LocalResources
   def initialize
     # Create the logger
     Cf::Log.init();
@@ -30,6 +31,28 @@ class ExampleServer
 
     append.call(Application::JSON, 'hello.json',
                 '{"kind_of": "JSON"}', 'Test2')
+
+    # We also have a nicer nickname you can use:
+    append.call(LocalApp::JSON, 'nickname.json',
+                '{"kind_of": "JSON"}', 'Test2')
+
+    begin
+      require 'json'
+
+      append.call(LocalApp::JSON, 'proper.json',
+                  JSON({ :a => 1, :b => 2}),
+                  'TestJSON')
+
+      appendJSON = Proc.new { |handle,hash|
+        append.call(LocalApp::JSON, handle, JSON(hash), 'MyJSON')
+      }
+
+      appendJSON.call('another.json', { :x => 'I do not know who is Jason P.' })
+
+    rescue LoadError
+      puts 'If you want to use JSON, run `gem install json-jruby`!'
+    end
+
 
     # p @my
 
