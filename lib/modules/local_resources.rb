@@ -19,26 +19,35 @@ class LocalResource < Cf::LocalResource
   end
 end
 
-# And this one just worked, which does
-# make me hapy & I can go to the pub now!
-module Text
-  class Plain < LocalResource
-    def performGET(request)
-      response = Cf::Response.new(Cf::CodeRegistry::RESP_CONTENT)
-      response.setPayload(@ep.getTitle)
-      response.setContentType(Cf::MediaTypeRegistry::TEXT_PLAIN)
-      request.respond(response)
+module LocalResources
+  # And this one just worked, which does
+  # make me hapy & I can go to the pub now!
+  module Text
+    class Plain < LocalResource
+      def performGET(request)
+        response = Cf::Response.new(Cf::CodeRegistry::RESP_CONTENT)
+        response.setPayload(@ep.getTitle)
+        response.setContentType(Cf::MediaTypeRegistry::TEXT_PLAIN)
+        request.respond(response)
+      end
+    end
+  end
+
+  module Application
+    class JSON < LocalResource
+      def performGET(request)
+        response = Cf::Response.new(Cf::CodeRegistry::RESP_CONTENT)
+        response.setPayload(@ep.getTitle)
+        response.setContentType(Cf::MediaTypeRegistry::APPLICATION_JSON)
+        request.respond(response)
+      end
     end
   end
 end
 
-module Application
-  class JSON < LocalResource
-    def performGET(request)
-      response = Cf::Response.new(Cf::CodeRegistry::RESP_CONTENT)
-      response.setPayload(@ep.getTitle)
-      response.setContentType(Cf::MediaTypeRegistry::APPLICATION_JSON)
-      request.respond(response)
-    end
-  end
+# Some nicknames
+module LocalApp
+  include LocalResources::Application
+  include LocalResources::Text
 end
+
