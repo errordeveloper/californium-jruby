@@ -110,7 +110,7 @@ end
 x.router { |method,request|
 
   static_routes = {
-    '/test.json' => lambda { |method|
+    '/static/test.json' => lambda { |method|
       case method
       when :get
         as_json(request, {:a =>1, :b =>2, :c =>3})
