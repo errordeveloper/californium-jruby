@@ -80,10 +80,58 @@ def as_json(request,hash)
   content(request, Cf::MediaTypeRegistry::APPLICATION_JSON, JSON(hash))
 end
 
+AppData = {}
+
+def application(method, request)
+  path = request.get_uri_path.split('/')
+
+  response = Cf::Response.new(CR[:content])
+  response.set_content_type(Cf::MediaTypeRegistry::APPLICATION_JSON)
+
+  case path[1]
+  when 'test'
+    case method
+    when :get
+      response.set_payload(JSON({:test => request.get_uri_path}))
+    when :put
+      unless AppData.has_key?(request.get_uri_path) then
+        AppData[request.get_uri_path] = 1
+      else
+        AppData[request.get_uri_path] += 1
+      end
+      p AppData
+    end
+  else
+    response.set_payload(JSON({:result => 'error!'}))
+  end
+  return response
+end
+
 x.router { |method,request|
 
+  static_routes = {
+    '/test.json' => lambda { |method|
+      case method
+      when :get
+        as_json(request, {:a =>1, :b =>2, :c =>3})
+      else
+        error(request, :bad_request)
+      end
+    }
+  }
+
   request.pretty_print
-  as_json(request, {:a =>1, :b =>2, :c =>3})
-  #error(request, :not_found)
+
+  case request.get_uri_path.split('/')[1]
+  when 'static'
+    case route = static_routes[request.get_uri_path]
+    when nil
+      error(request, :not_found)
+    else
+      route.call(method)
+    end
+  else
+    request.respond(application(method, request))
+  end
 
 }
