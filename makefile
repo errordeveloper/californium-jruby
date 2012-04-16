@@ -1,5 +1,5 @@
 CDN_BASE_URL=http://cloud.github.com/downloads/errordeveloper/californium-jruby
-CALIFORNIUM_REVISION=e0378d4243db66994d373846c24687504e59a193
+CALIFORNIUM_REVISION=475cfd009d7f845d4de96eed2c54eb5a7a574d20
 PROJECT_ROOT=whereis_makefile
 
 JAR		?= jar
